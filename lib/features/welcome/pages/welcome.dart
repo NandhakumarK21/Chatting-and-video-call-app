@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsup/common/theme.dart';
-import 'package:whatsup/common/util/constants.dart';
 import 'package:whatsup/common/widgets/primary_button.dart';
 import 'package:whatsup/router.dart';
 
