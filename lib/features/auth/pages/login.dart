@@ -101,7 +101,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               child: PrimaryButton(
                 title: "NEXT",
                 loading: loading,
-                onPressed: goToOTPVerification,
+                onPressed: goToOTPVerification, color: Colors.black,
               ),
             ),
           ],

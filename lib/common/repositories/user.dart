@@ -9,7 +9,6 @@ import 'package:whatsup/common/models/call.dart';
 import 'package:whatsup/common/models/chat.dart';
 import 'package:whatsup/common/models/group.dart';
 import 'package:whatsup/common/models/message.dart';
-import 'package:whatsup/common/models/status.dart';
 import 'package:whatsup/common/models/user.dart';
 import 'package:whatsup/common/providers.dart';
 import 'package:whatsup/common/repositories/auth.dart';
@@ -167,12 +166,7 @@ class UserRepository {
         );
   }
 
-  CollectionReference<StatusModel> get statuses {
-    return _db.collection(kStatusCollectionId).withConverter<StatusModel>(
-          fromFirestore: (snapshot, _) => StatusModel.fromMap(snapshot.data()!),
-          toFirestore: (status, _) => status.toMap(),
-        );
-  }
+
 
   CollectionReference<GroupModel> get groups {
     return _db.collection(kGroupsCollectionId).withConverter<GroupModel>(
@@ -188,7 +182,6 @@ class UserRepository {
         );
   }
 
-  Query<StatusModel> userStatuses(String userId) => statuses.where('uid', isEqualTo: userId);
 
   Stream<UserModel> userStream(String uid) {
     return users.doc(uid).snapshots().map((event) => event.data()!);

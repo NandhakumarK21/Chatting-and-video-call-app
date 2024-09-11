@@ -16,7 +16,7 @@ class WelcomePage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Welcome to $kAppName",
+          "Welcome to Chat App",
           style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
         ),
         centerTitle: true,
@@ -29,12 +29,12 @@ class WelcomePage extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Column(
               children: [
-                const SizedBox(height: 60),
+                const SizedBox(height: 30),
                 Image.asset(
                   "assets/img/welcome_bg.png",
-                  width: 240,
-                  height: 240,
-                  color: kPrimaryColor,
+                  width: 300,
+                  height: 300,
+                
                 ),
                 const SizedBox(height: 50),
                 const Text.rich(
@@ -58,8 +58,9 @@ class WelcomePage extends ConsumerWidget {
                 SizedBox(
                   width: 320,
                   child: PrimaryButton(
+                    
                     title: "AGREE AND CONTINUE",
-                    onPressed: () => Navigator.pushNamed(context, PageRouter.login),
+                    onPressed: () => Navigator.pushNamed(context, PageRouter.login), color: Colors.black,
                   ),
                 ),
                 const Spacer(flex: 2),

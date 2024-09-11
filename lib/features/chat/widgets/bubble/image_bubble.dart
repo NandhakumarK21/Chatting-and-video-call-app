@@ -34,7 +34,6 @@ class ImageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool stateTick = false;
 
     return Row(
       children: <Widget>[

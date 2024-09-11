@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:whatsup/common/models/call.dart';
-import 'package:whatsup/common/models/status.dart';
 import 'package:whatsup/common/util/logger.dart';
 import 'package:whatsup/features/auth/pages/create_profile.dart';
 import 'package:whatsup/features/auth/pages/login.dart';
@@ -12,9 +9,6 @@ import 'package:whatsup/features/chat/pages/chat_room.dart';
 import 'package:whatsup/features/contact/pages/select_contact.dart';
 import 'package:whatsup/features/group/pages/create_group.dart';
 import 'package:whatsup/features/home/pages/home.dart';
-import 'package:whatsup/features/status/pages/status_image_preview.dart';
-import 'package:whatsup/features/status/pages/status_view.dart';
-import 'package:whatsup/features/status/pages/status_writer.dart';
 import 'package:whatsup/features/welcome/pages/welcome.dart';
 
 class PageRouter {
@@ -55,14 +49,7 @@ class PageRouter {
           isGroup: args['isGroup'] as bool,
           name: args['name'] as String,
         ));
-      case statusWriter:
-        return _createRoute(const StatusWriterPage());
-      case statusViewer:
-        final status = settings.arguments as StatusModel;
-        return _createRoute(StatusViewerPage(status: status));
-      case statusImageConfirm:
-        final file = settings.arguments as File;
-        return _createRoute(StatusImageConfirmPage(file: file));
+
       case createGroup:
         return _createRoute(const CreateGroupPage());
       case call:

@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:audioplayers/audioplayers.dart';
-import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -8,7 +7,6 @@ import 'package:whatsup/common/models/message.dart';
 import 'package:whatsup/common/theme.dart';
 import 'package:whatsup/common/util/logger.dart';
 import 'package:whatsup/features/chat/widgets/bubble/chat_bubble.dart';
-import 'package:whatsup/features/chat/widgets/bubble/chat_bubble_bottom.dart';
 
 class ChatAudioBubble extends ConsumerStatefulWidget {
   final MessageModel message;

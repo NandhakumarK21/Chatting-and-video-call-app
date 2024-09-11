@@ -17,7 +17,7 @@
     <!-- The Zego SDK requires Bluetooth permissions in case users are using Bluetooth devices.-->
     <uses-permission  android:name="android.permission.BLUETOOTH"  />
     <application
-        android:label="whatsup"
+        android:label="Chat App"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

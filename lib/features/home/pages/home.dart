@@ -3,10 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsup/common/theme.dart';
 import 'package:whatsup/common/util/constants.dart';
-import 'package:whatsup/common/util/file_picker.dart';
 import 'package:whatsup/features/call/widgets/call_list.dart';
 import 'package:whatsup/features/home/widgets/chat_list.dart';
-import 'package:whatsup/features/status/widgets/status_list.dart';
 import 'package:whatsup/router.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -23,7 +21,7 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
   @override
   void initState() {
     super.initState();
-    controller = TabController(length: 3, vsync: this);
+    controller = TabController(length: 2, vsync: this);
     // update the state of the tab controller when the tab changes
     controller.addListener(() {
       if (controller.indexIsChanging) {
@@ -39,7 +37,7 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
       length: controller.length,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(kAppName),
+          title: const Text('Chat App'),
           bottom: TabBar(
             controller: controller,
             indicatorColor: themeMode == Brightness.light ? Colors.white : kPrimaryColor,
@@ -48,36 +46,13 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
             indicatorWeight: 4,
             tabs: const [
               Tab(text: "Chat"),
-              Tab(text: "Status"),
               Tab(text: "Calls"),
             ],
           ),
           actions: [
             // theme switcher
-            IconButton(
-              splashRadius: kDefaultSplashRadius,
-              onPressed: () {
-                ref.read(themeNotifierProvider.notifier).toggle();
-              },
-              icon: themeMode == Brightness.light
-                  ? Icon(
-                      Icons.nightlight_outlined,
-                      color: kAppBarActionIconColor,
-                    )
-                  : Icon(
-                      Icons.wb_sunny_outlined,
-                      color: kAppBarActionIconColor,
-                    ),
-            ),
+            
 
-            IconButton(
-              splashRadius: kDefaultSplashRadius,
-              onPressed: () {},
-              icon: Icon(
-                Icons.photo_camera_outlined,
-                color: kAppBarActionIconColor,
-              ),
-            ),
             IconButton(
               splashRadius: kDefaultSplashRadius,
               onPressed: () {},
@@ -87,6 +62,19 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
                 color: kAppBarActionIconColor,
               ),
             ),
+
+            // Sign Out Button
+            IconButton(
+              splashRadius: kDefaultSplashRadius,
+              onPressed: () {
+                _signOut(context); // Call the sign out function
+              },
+              icon: Icon(
+                Icons.logout,
+                color: kAppBarActionIconColor,
+              ),
+            ),
+
             PopupMenuButton(
               splashRadius: kDefaultSplashRadius,
               icon: Icon(
@@ -113,7 +101,6 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
           controller: controller,
           children: const [
             ChatList(),
-            StatusList(),
             CallList(),
           ],
         ),
@@ -123,55 +110,30 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
   }
 
   Widget get floatingWidgets {
-    final lowerButton = FloatingActionButton(
+    return FloatingActionButton(
       backgroundColor: kPrimaryColor,
       heroTag: 'lower',
       onPressed: () {
-        if (controller.index == 1) {
-          void pickStatusImage() async {
-            final image = await FilePicker.pickFile(FilePickerSource.galleryImage);
-            image.match(
-              () => {},
-              (file) {
-                Navigator.pushNamed(context, PageRouter.statusImageConfirm, arguments: file);
-              },
-            );
-          }
-
-          pickStatusImage();
-        } else {
+        if (controller.index == 0) {
+          // Show contact list (for chat)
           Navigator.pushNamed(context, PageRouter.selectContact);
+        } else if (controller.index == 1) {
+          // Start a new call (for calls)
+          Navigator.pushNamed(context, PageRouter.selectContact);  // You can replace this with your desired call action.
         }
       },
-      child: Icon(controller.index == 1 ? Icons.photo_camera : Icons.comment, color: Colors.white),
+      child: Icon(
+        controller.index == 0 ? Icons.contact_page : Icons.call,  // Show different icons based on the tab
+        color: Colors.white,
+      ),
     );
-    return Column(
-      children: [
-        const Spacer(),
-        AnimatedOpacity(
-          duration: const Duration(milliseconds: 50),
-          opacity: controller.index == 1 ? 1 : 0,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 185),
-            width: 45,
-            height: 45,
-            child: FloatingActionButton(
-              heroTag: 'writer',
-              onPressed: () {
-                Navigator.pushNamed(context, PageRouter.statusWriter);
-              },
-              backgroundColor: kDarkTextFieldBgColor,
-              mini: true,
-              child: const Icon(
-                Icons.edit,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(height: 20),
-        lowerButton,
-      ],
-    );
+  }
+
+  // Sign out function
+  void _signOut(BuildContext context) {
+    // Add your sign-out logic here (e.g., clearing user session or token)
+    
+    // Navigate to the welcome page after sign-out
+    Navigator.pushReplacementNamed(context, PageRouter.welcome); // Replace with your actual route for the welcome page
   }
 }

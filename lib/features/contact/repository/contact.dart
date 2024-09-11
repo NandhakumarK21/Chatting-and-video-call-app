@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsup/common/repositories/user.dart';

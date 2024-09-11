@@ -62,7 +62,7 @@ class _OTPVerificationPageState extends ConsumerState<OTPVerificationPage> {
               PrimaryButton(
                 title: "Verify",
                 onPressed: verifyOTP,
-                loading: loading,
+                loading: loading, color: Colors.black,
               ),
               const SizedBox(height: 40),
             ],
